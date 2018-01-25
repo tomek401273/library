@@ -31,5 +31,7 @@ dependencies {
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.3'
+
 	//providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 }
