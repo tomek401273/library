@@ -1,6 +1,6 @@
 package com.library.kodillalibrary.model.dao;
 
-import com.library.kodillalibrary.model.Title;
+import com.library.kodillalibrary.model.title.Title;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

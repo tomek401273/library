@@ -1,7 +1,11 @@
 package com.library.kodillalibrary.model.dao;
 
-import com.library.kodillalibrary.model.Reader;
+import com.library.kodillalibrary.model.reader.Reader;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ReaderDao extends CrudRepository<Reader, Long>{
+import java.util.List;
+
+public interface ReaderDao extends CrudRepository<Reader, Long> {
+    @Override
+    List<Reader> findAll();
 }

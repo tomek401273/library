@@ -1,23 +1,33 @@
-package com.library.kodillalibrary.model;
+package com.library.kodillalibrary.model.borrowed;
+
+import com.library.kodillalibrary.model.copyBooks.CopyBooks;
+import com.library.kodillalibrary.model.reader.Reader;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "BORROWED")
-public class Borrowed {
+@Table(name = "BOROWED")
+public class Borowed {
     private Long id;
     private String beginBorrow;
     private String endBorrow;
     private CopyBooks copyBooks;
     private Reader reader;
 
-    public Borrowed() {
+    public Borowed() {
     }
 
-    public Borrowed(String beginBorrow, String endBorrow) {
+    public Borowed(String beginBorrow, String endBorrow) {
         this.beginBorrow = beginBorrow;
         this.endBorrow = endBorrow;
+    }
+
+    public Borowed(String beginBorrow, String endBorrow, CopyBooks copyBooks, Reader reader) {
+        this.beginBorrow = beginBorrow;
+        this.endBorrow = endBorrow;
+        this.copyBooks = copyBooks;
+        this.reader = reader;
     }
 
     @Id
@@ -51,7 +61,7 @@ public class Borrowed {
     }
 
     @OneToOne
-    @JoinColumn(name = "COPYBOOKS_ID")
+    @JoinColumn(name = "COPYBOOKS_ID",unique = true)
     public CopyBooks getCopyBooks() {
         return copyBooks;
     }
@@ -60,7 +70,7 @@ public class Borrowed {
         this.copyBooks = copyBooks;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "READER_ID")
     public Reader getReader() {
         return reader;
@@ -68,5 +78,16 @@ public class Borrowed {
 
     public void setReader(Reader reader) {
         this.reader = reader;
+    }
+
+    @Override
+    public String toString() {
+        return "Borowed{" +
+                "id=" + id +
+                ", beginBorrow='" + beginBorrow + '\'' +
+                ", endBorrow='" + endBorrow + '\'' +
+                ", copyBooks=" + copyBooks +
+                ", reader=" + reader +
+                '}';
     }
 }

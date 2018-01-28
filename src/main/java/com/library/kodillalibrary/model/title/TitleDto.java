@@ -1,42 +1,45 @@
-package com.library.kodillalibrary.model;
+package com.library.kodillalibrary.model.title;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import com.library.kodillalibrary.model.copyBooks.CopyBooks;
+
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "TITLE")
-public class Title {
-
+public class TitleDto {
     private long id;
     private String titleName;
     private String author;
     private int publicationYear;
-    private List<CopyBooks> copyBooksList = new ArrayList<>();
 
-    public Title() {
+    private List<CopyBooks> copyBooksList = new ArrayList<>();
+    private List<String> statusList = new ArrayList<>();
+
+    public TitleDto() {
     }
 
-    public Title(String titleName, String author, int publicationYear, List<CopyBooks> copyBooksList) {
+    public TitleDto(long id, String titleName, String author, int publicationYear) {
+        this.id = id;
         this.titleName = titleName;
         this.author = author;
         this.publicationYear = publicationYear;
-        this.copyBooksList = copyBooksList;
     }
 
-    @Id
-    @GeneratedValue
-    @NotNull
-    @Column(name = "ID", unique = true)
-    public Long getId() {
+    public TitleDto(long id, String titleName, String author, int publicationYear, List<String> statusList) {
+        this.id = id;
+        this.titleName = titleName;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.statusList = statusList;
+    }
+
+    public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
     }
-    @Column(name = "TITLENAME")
+
     public String getTitleName() {
         return titleName;
     }
@@ -45,7 +48,6 @@ public class Title {
         this.titleName = titleName;
     }
 
-    @Column()
     public String getAuthor() {
         return author;
     }
@@ -53,7 +55,7 @@ public class Title {
     public void setAuthor(String author) {
         this.author = author;
     }
-    @Column()
+
     public int getPublicationYear() {
         return publicationYear;
     }
@@ -62,12 +64,6 @@ public class Title {
         this.publicationYear = publicationYear;
     }
 
-    @OneToMany(
-            targetEntity = CopyBooks.class
-          //  mappedBy = "title"
-//            cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY
-    )
     public List<CopyBooks> getCopyBooksList() {
         return copyBooksList;
     }
@@ -75,4 +71,14 @@ public class Title {
     public void setCopyBooksList(List<CopyBooks> copyBooksList) {
         this.copyBooksList = copyBooksList;
     }
+
+    public List<String> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<String> statusList) {
+        this.statusList = statusList;
+    }
+
+
 }
