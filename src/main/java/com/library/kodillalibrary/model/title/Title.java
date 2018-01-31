@@ -1,68 +1,34 @@
 package com.library.kodillalibrary.model.title;
 
 import com.library.kodillalibrary.model.copyBooks.CopyBooks;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "TITLE")
 public class Title {
-
-    private long id;
-    private String titleName;
-    private String author;
-    private int publicationYear;
-    private List<CopyBooks> copyBooksList = new ArrayList<>();
-
-    public Title() {
-    }
-
-    public Title(String titleName, String author, int publicationYear, List<CopyBooks> copyBooksList) {
-        this.titleName = titleName;
-        this.author = author;
-        this.publicationYear = publicationYear;
-        this.copyBooksList = copyBooksList;
-    }
-
     @Id
     @GeneratedValue
     @NotNull
     @Column(name = "ID", unique = true)
-    public Long getId() {
-        return id;
-    }
+    private long id;
 
-    public void setId(long id) {
-        this.id = id;
-    }
     @Column(name = "TITLENAME")
-    public String getTitleName() {
-        return titleName;
-    }
-
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
-    }
-
-    @Column()
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-    @Column()
-    public int getPublicationYear() {
-        return publicationYear;
-    }
-
-    public void setPublicationYear(int publicationYear) {
-        this.publicationYear = publicationYear;
-    }
+    private String titleName;
+    @Column
+    private String author;
+    @Column
+    private int publicationYear;
 
     @OneToMany(
             targetEntity = CopyBooks.class,
@@ -70,11 +36,12 @@ public class Title {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    public List<CopyBooks> getCopyBooksList() {
-        return copyBooksList;
-    }
+    private List<CopyBooks> copyBooksList = new ArrayList<>();
 
-    public void setCopyBooksList(List<CopyBooks> copyBooksList) {
+    public Title(String titleName, String author, int publicationYear, List<CopyBooks> copyBooksList) {
+        this.titleName = titleName;
+        this.author = author;
+        this.publicationYear = publicationYear;
         this.copyBooksList = copyBooksList;
     }
 }

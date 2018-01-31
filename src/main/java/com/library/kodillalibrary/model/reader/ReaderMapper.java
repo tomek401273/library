@@ -26,7 +26,8 @@ public class ReaderMapper {
             readerDto.setName(reader.getName());
             readerDto.setSurname(reader.getSurname());
             readerDto.setDateCrerateAccount(reader.getDateCrerateAccount());
-            List<Borowed> readerList1 = reader.getBorrowedList();
+
+            List<Borowed> readerList1 = reader.getBorowedList();
 
             List<String> copyBooksDtoList = new ArrayList<>();
 

@@ -56,18 +56,12 @@ public class BorowedController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
     public void deleteBorow(@PathVariable(value = "id") Long id) {
-        List<Borowed> borowedDtoList = borowedDao.findAll();
+        Borowed borowed = borowedDao.findById(id);
 
-        for (int i = 0; i < borowedDtoList.size(); i++) {
-            Borowed borowed = borowedDtoList.get(i);
-            if (borowed.getCopyBooks().getId().equals(id)) {
-
-                CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
+        CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
                 copyBooks.setStatus("FREEEEE!!!");
                 copyBooksDao.save(copyBooks);
-
                 borowedDao.delete(borowed);
-            }
-        }
+
     }
 }

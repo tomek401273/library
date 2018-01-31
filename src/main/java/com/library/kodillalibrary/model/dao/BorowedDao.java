@@ -10,4 +10,6 @@ public interface BorowedDao extends CrudRepository<Borowed, Long> {
     @Override
     public List<Borowed> findAll();
 
+    Borowed findById(Long id);
+
 }

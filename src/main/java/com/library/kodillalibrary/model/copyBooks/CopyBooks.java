@@ -1,19 +1,33 @@
 package com.library.kodillalibrary.model.copyBooks;
 
 import com.library.kodillalibrary.model.title.Title;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "COPYBOOKS")
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public final class CopyBooks {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
+    @Column(name = "ID", unique = true)
     private Long id;
+
+    @Column
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "TITLE_ID")
     private Title title;
-    public CopyBooks() {
-    }
 
     public CopyBooks(String status) {
         this.status = status;
@@ -24,41 +38,4 @@ public final class CopyBooks {
         this.title = title;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
-    @Column(name = "ID", unique = true)
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    @Column
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "TITLE_ID")
-    public Title getTitle() {
-        return title;
-    }
-
-    public void setTitle(Title title) {
-        this.title = title;
-    }
-
-    @Override
-    public String toString() {
-        return "CopyBooks{" +
-                "id=" + id +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }
