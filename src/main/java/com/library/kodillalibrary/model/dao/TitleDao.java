@@ -8,4 +8,8 @@ import java.util.List;
 public interface TitleDao extends CrudRepository<Title, Long> {
     @Override
     List<Title> findAll();
+
+    List<Title>  findByTitleName(String title);
+
+
 }

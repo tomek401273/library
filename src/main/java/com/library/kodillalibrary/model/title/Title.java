@@ -1,19 +1,18 @@
 package com.library.kodillalibrary.model.title;
 
 import com.library.kodillalibrary.model.copyBooks.CopyBooks;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "TITLE")
 public class Title {

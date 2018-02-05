@@ -2,10 +2,7 @@ package com.library.kodillalibrary.model.borrowed;
 
 import com.library.kodillalibrary.model.copyBooks.CopyBooks;
 import com.library.kodillalibrary.model.reader.Reader;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @ToString
 public class Borowed {
     @Id

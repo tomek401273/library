@@ -37,31 +37,37 @@ public class BorowedController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/save", consumes = APPLICATION_JSON_VALUE)
     public void crateNewBorow(@RequestBody BorowedDto borowedDto) {
-
-        System.out.println("Borowed Dto: " + borowedDto.toString());
         Borowed borowed = borowedMapper.mapToBorowed(borowedDto);
-        System.out.println("Borowed: " + borowed.toString());
 
 
         CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
+        if (copyBooks.getStatus().equals("Free")) {
 
-        copyBooks.setStatus("Phone");
-        copyBooksDao.save(copyBooks);
+            copyBooks.setStatus("Borrowed");
+            copyBooksDao.save(copyBooks);
+            borowedDao.save(borowed);
+        } else {
+            System.out.println("This book is occupied");
+        }
 
-//        borowed.setCopyBooks(copyBooks);
-//        copyBookController.updateTask2(borowed.getCopyBooks());
 
-        borowedDao.save(borowed);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
     public void deleteBorow(@PathVariable(value = "id") Long id) {
-        Borowed borowed = borowedDao.findById(id);
+        Borowed borowed = new Borowed();
+        borowed = borowedDao.findById(id);
 
-        CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
-                copyBooks.setStatus("FREEEEE!!!");
+        try {
+                CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
+                copyBooks.setStatus("Free");
                 copyBooksDao.save(copyBooks);
                 borowedDao.delete(borowed);
+
+        } catch (NullPointerException e) {
+            System.out.println("This borrowed NOT exit in database");
+        }
+
 
     }
 }

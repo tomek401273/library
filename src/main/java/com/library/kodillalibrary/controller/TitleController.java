@@ -17,6 +17,7 @@ import com.library.kodillalibrary.model.title.TitleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -41,6 +42,14 @@ public class TitleController {
     @RequestMapping(method = RequestMethod.POST, value = "/save", consumes = APPLICATION_JSON_VALUE)
     public void createNewTitle(@RequestBody TitleDto titleDto) {
         Title title = titleMapper.mapToTitle(titleDto);
-        titleDao.save(title);
+
+        List<TitleDto> foundTitle = titleMapper.mapToTitleDtoList(titleDao.findByTitleName(title.getTitleName()));
+
+        if (foundTitle.size() == 0) {
+            titleDao.save(title);
+        } else {
+            System.out.println("this title is alredy added in our library");
+        }
+
     }
 }

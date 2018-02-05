@@ -43,4 +43,16 @@ public class BorowedMapper {
         return borowedDtos;
     }
 
+    public BorowedDto mapToBorrowedDto(final Borowed borowed) {
+
+        BorowedDto borowedDto = new BorowedDto();
+        borowedDto.setBeginBorrow(borowed.getBeginBorrow());
+        borowedDto.setEndBorrow(borowed.getEndBorrow());
+        borowedDto.setId(borowed.getId());
+        borowedDto.setReaderName("id: " + borowed.getReader().getId() + "; UserName: " + borowed.getReader().getName() + "; UserSurname: " + borowed.getReader().getSurname());
+        borowedDto.setCoopyBooksPosition("title: " + borowed.getCopyBooks().getTitle().getTitleName() + "; CopyBooks_ID: " + borowed.getCopyBooks().getId());
+
+        return borowedDto;
+    }
+
 }
