@@ -43,13 +43,24 @@ public class TitleController {
     public void createNewTitle(@RequestBody TitleDto titleDto) {
         Title title = titleMapper.mapToTitle(titleDto);
 
-        List<TitleDto> foundTitle = titleMapper.mapToTitleDtoList(titleDao.findByTitleName(title.getTitleName()));
+        List<TitleDto> foundTitleDtoList = titleMapper.mapToTitleDtoList(titleDao.findByTitleName(title.getTitleName()));
 
-        if (foundTitle.size() == 0) {
-            titleDao.save(title);
+        if (foundTitleDtoList.size() != 0) {
+            for (TitleDto foundTitleDto : foundTitleDtoList) {
+                if (foundTitleDto.getAuthor().equals(titleDto.getAuthor())) {
+
+                    if (foundTitleDto.getPublicationYear() == titleDto.getPublicationYear()) {
+                        System.out.println("This title is alredy added in our library");
+                    } else {
+                        titleDao.save(title);
+                    }
+
+                } else {
+                    titleDao.save(title);
+                }
+            }
         } else {
-            System.out.println("this title is alredy added in our library");
+            titleDao.save(title);
         }
-
     }
 }

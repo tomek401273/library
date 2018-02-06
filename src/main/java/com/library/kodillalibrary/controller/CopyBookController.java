@@ -55,7 +55,7 @@ public class CopyBookController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
-    public void updateTask(@RequestBody CopyBooksDto copyBooksDto) {
+    public void updateCopyBookStatus(@RequestBody CopyBooksDto copyBooksDto) {
         CopyBooks copyBooks = copyBooksMapper.mapToCopyBooksUpdate(copyBooksDto);
         copyBooksDao.save(copyBooks);
 
