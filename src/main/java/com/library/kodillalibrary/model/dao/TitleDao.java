@@ -9,7 +9,6 @@ public interface TitleDao extends CrudRepository<Title, Long> {
     @Override
     List<Title> findAll();
 
-    List<Title>  findByTitleName(String title);
-
+    List<Title> findByTitleNameAndAuthorAndPublicationYear(String titleName, String author, int publicationYear);
 
 }
