@@ -36,7 +36,7 @@ public class BorowedController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/save", consumes = APPLICATION_JSON_VALUE)
-    public void crateNewBorow(@RequestBody BorowedDto borowedDto) {
+    public BorowedDto crateNewBorow(@RequestBody BorowedDto borowedDto) {
         Borowed borowed = borowedMapper.mapToBorowed(borowedDto);
 
 
@@ -49,14 +49,12 @@ public class BorowedController {
         } else {
             System.out.println("This book is occupied");
         }
-
-
+        return borowedDto;
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
-    public void deleteBorow(@PathVariable(value = "id") Long id) {
-        Borowed borowed = new Borowed();
-        borowed = borowedDao.findById(id);
+    public BorowedDto deleteBorow(@PathVariable(value = "id") Long id) {
+        Borowed  borowed = borowedDao.findById(id);
 
         try {
                 CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
@@ -67,7 +65,6 @@ public class BorowedController {
         } catch (NullPointerException e) {
             System.out.println("This borrowed NOT exit in database");
         }
-
-
+        return borowedMapper.mapToBorrowedDto(borowed);
     }
 }

@@ -10,4 +10,6 @@ public interface CopyBooksDao extends CrudRepository<CopyBooks, Long>{
     List<CopyBooks> findAll();
 
     CopyBooks findById(Long id);
+
+    List<CopyBooks> findByTitle_TitleNameAndStatus(String titleName, String status);
 }

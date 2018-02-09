@@ -31,34 +31,21 @@ public class CopyBookController {
     @RequestMapping("/free/{title}")
     public @ResponseBody
     List<CopyBooksDto> getCopyBooks2(@PathVariable(value = "title") String title) {
-        System.out.println("title TITLE: "+title);
-        List<CopyBooksDto> copyBooksDtos = copyBooksMapper.mapToCopyDtoList(copyBooksDao.findAll());
-        List<CopyBooksDto> copyBooksDtos2 = new ArrayList<>();
-
-        for (CopyBooksDto copyBooksDto : copyBooksDtos) {
-
-            if (copyBooksDto.getStatus().equals("FREE")) {
-                if (copyBooksDto.getTitleName().equals(title)){
-                    copyBooksDtos2.add(copyBooksDto);
-                    System.out.println(copyBooksDto.getTitleName());
-
-                }
-            }
-        }
-        return copyBooksDtos2;
+        return copyBooksMapper.mapToCopyDtoList(copyBooksDao.findByTitle_TitleNameAndStatus(title, "FREE"));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/save", consumes = APPLICATION_JSON_VALUE)
-    public void createCopyBooks(@RequestBody CopyBooksDto copyBooksDto) {
+    public CopyBooksDto createCopyBooks(@RequestBody CopyBooksDto copyBooksDto) {
         CopyBooks copyBooks = copyBooksMapper.mapToCopyBooks(copyBooksDto);
         copyBooksDao.save(copyBooks);
+        return copyBooksDto;
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
-    public void updateCopyBookStatus(@RequestBody CopyBooksDto copyBooksDto) {
+    public CopyBooksDto updateCopyBookStatus(@RequestBody CopyBooksDto copyBooksDto) {
         CopyBooks copyBooks = copyBooksMapper.mapToCopyBooksUpdate(copyBooksDto);
         copyBooksDao.save(copyBooks);
-
+        return copyBooksDto;
     }
 
 }

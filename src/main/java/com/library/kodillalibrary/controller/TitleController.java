@@ -40,7 +40,7 @@ public class TitleController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/save", consumes = APPLICATION_JSON_VALUE)
-    public void createNewTitle(@RequestBody TitleDto titleDto) {
+    public String createNewTitle(@RequestBody TitleDto titleDto) {
         Title title = titleMapper.mapToTitle(titleDto);
 
         List<TitleDto> foundTitles = titleMapper.mapToTitleDtoList(titleDao.findByTitleNameAndAuthorAndPublicationYear(title.getTitleName(),title.getAuthor(),title.getPublicationYear()));
@@ -49,9 +49,10 @@ public class TitleController {
         if (foundTitles.size()==0) {
             System.out.println("Adding title to library!!!");
             titleDao.save(title);
+            return "Processing added title to library was successful ";
         }
         else {
-            System.out.println("This title is alredy added in our library");
+           return "This title already is in this library";
         }
 
     }
