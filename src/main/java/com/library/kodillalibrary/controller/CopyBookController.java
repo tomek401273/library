@@ -35,17 +35,17 @@ public class CopyBookController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/save", consumes = APPLICATION_JSON_VALUE)
-    public CopyBooksDto createCopyBooks(@RequestBody CopyBooksDto copyBooksDto) {
+    public String createCopyBooks(@RequestBody CopyBooksDto copyBooksDto) {
         CopyBooks copyBooks = copyBooksMapper.mapToCopyBooks(copyBooksDto);
         copyBooksDao.save(copyBooks);
-        return copyBooksDto;
+        return "Saving in database ending successfully";
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
-    public CopyBooksDto updateCopyBookStatus(@RequestBody CopyBooksDto copyBooksDto) {
+    public String updateCopyBookStatus(@RequestBody CopyBooksDto copyBooksDto) {
         CopyBooks copyBooks = copyBooksMapper.mapToCopyBooksUpdate(copyBooksDto);
         copyBooksDao.save(copyBooks);
-        return copyBooksDto;
+        return "Updating CoppyBook ending succesfuly";
     }
 
 }

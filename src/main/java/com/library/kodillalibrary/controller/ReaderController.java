@@ -27,9 +27,9 @@ public class ReaderController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/save",consumes = APPLICATION_JSON_VALUE)
-    public ReaderDto createNewReader(@RequestBody ReaderDto readerDto) {
+    public String createNewReader(@RequestBody ReaderDto readerDto) {
         Reader reader = readerMapper.mapToReader(readerDto);
         readerDao.save(reader);
-        return readerDto;
+        return "Registration process was successfully";
     }
 }
