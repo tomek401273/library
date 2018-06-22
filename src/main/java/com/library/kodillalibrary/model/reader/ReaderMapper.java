@@ -20,7 +20,7 @@ public class ReaderMapper {
         List<Reader> readers = readerList;
         List<ReaderDto> readerDtos = new ArrayList<>();
 
-        for (Reader reader: readers) {
+        for (Reader reader : readers) {
             ReaderDto readerDto = new ReaderDto();
             readerDto.setId(reader.getId());
             readerDto.setName(reader.getName());

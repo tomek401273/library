@@ -8,8 +8,7 @@ import java.util.List;
 public interface BorowedDao extends CrudRepository<Borowed, Long> {
 
     @Override
-    public List<Borowed> findAll();
+    List<Borowed> findAll();
 
-       Borowed findById(Long id);
-
+    Borowed findById(Long id);
 }

@@ -16,7 +16,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/borowed")
 public class BorowedController {
-
     @Autowired
     private BorowedDao borowedDao;
 
@@ -38,8 +37,6 @@ public class BorowedController {
     @RequestMapping(method = RequestMethod.POST, value = "/save", consumes = APPLICATION_JSON_VALUE)
     public String crateNewBorow(@RequestBody BorowedDto borowedDto) {
         Borowed borowed = borowedMapper.mapToBorowed(borowedDto);
-
-
         CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
         if (copyBooks.getStatus().equals("Free")) {
 
@@ -47,27 +44,21 @@ public class BorowedController {
             copyBooksDao.save(copyBooks);
             borowedDao.save(borowed);
             return "You just borrowed book";
-
-        } else {
-             return "This book is occupied";
         }
-
+        return "This book is occupied";
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
     public String deleteBorow(@PathVariable(value = "id") Long id) {
-        Borowed  borowed = borowedDao.findById(id);
-
+        Borowed borowed = borowedDao.findById(id);
         try {
-                CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
-                copyBooks.setStatus("Free");
-                copyBooksDao.save(copyBooks);
-                borowedDao.delete(borowed);
-                return "Deleting books ending succesfully";
-
+            CopyBooks copyBooks = copyBooksDao.findById(borowed.getCopyBooks().getId());
+            copyBooks.setStatus("Free");
+            copyBooksDao.save(copyBooks);
+            borowedDao.delete(borowed);
+            return "Deleting books ending succesfully";
         } catch (NullPointerException e) {
-           return "This borrowed NOT exit in database";
+            return "This borrowed NOT exit in database";
         }
-
     }
 }

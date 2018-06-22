@@ -18,13 +18,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CopyBookController {
     @Autowired
     CopyBooksDao copyBooksDao;
+
     @Autowired
     private CopyBooksMapper copyBooksMapper;
 
     @RequestMapping("/all")
     public @ResponseBody
     List<CopyBooksDto> getCopyBooks() {
-        //return copyBooksDao.findAll();
         return copyBooksMapper.mapToCopyDtoList(copyBooksDao.findAll());
     }
 

@@ -17,10 +17,8 @@ public class TitleDto {
     private String titleName;
     private String author;
     private int publicationYear;
-
     private List<CopyBooks> copyBooksList = new ArrayList<>();
     private List<String> statusList = new ArrayList<>();
-
 
     public TitleDto(long id, String titleName, String author, int publicationYear) {
         this.id = id;
@@ -36,5 +34,4 @@ public class TitleDto {
         this.publicationYear = publicationYear;
         this.statusList = statusList;
     }
-
 }

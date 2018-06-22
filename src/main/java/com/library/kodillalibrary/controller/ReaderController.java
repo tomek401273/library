@@ -17,6 +17,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ReaderController {
     @Autowired
     private ReaderMapper readerMapper;
+
     @Autowired
     private ReaderDao readerDao;
 
